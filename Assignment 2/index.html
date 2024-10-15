@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2</title>
+    <link rel="stylesheet" href="./style.css">
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+    <section class="getLoc">
+		<div class="getLocBox">
+			<div class="getLocBoxTop">
+				<h1>Weather Search</h1>
+				<h2>Fill out the search to get your weather!</h2>
+			</div>
+			<div class="getLocBoxBot">
+				<div class="inputContainer">
+					<label for="street-in">Street</label>
+					<input id="street-in" type="text">
+					<span id="streetError" class="errorMessage">Please fill out this field.</span>
+					<div class="inputContainerRow">
+						<div class="inputContainerUnit">
+							<label for="city-in">City</label>
+							<input id="city-in" type="text">
+							<span id="cityError" class="errorMessage">Please fill out this field.</span>
+						</div>
+						<div class="inputContainerUnit">
+							<label for="state-in">State</label>
+							<select name="state-in" id="state-in">
+								<option value="">Select a state</option>
+								<option value="AL">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AZ">Arizona</option>
+								<option value="AR">Arkansas</option>
+								<option value="CA">California</option>
+								<option value="CO">Colorado</option>
+								<option value="CT">Connecticut</option>
+								<option value="DE">Delaware</option>
+								<option value="FL">Florida</option>
+								<option value="GA">Georgia</option>
+								<option value="HI">Hawaii</option>
+								<option value="ID">Idaho</option>
+								<option value="IL">Illinois</option>
+								<option value="IN">Indiana</option>
+								<option value="IA">Iowa</option>
+								<option value="KS">Kansas</option>
+								<option value="KY">Kentucky</option>
+								<option value="LA">Louisiana</option>
+								<option value="ME">Maine</option>
+								<option value="MD">Maryland</option>
+								<option value="MA">Massachusetts</option>
+								<option value="MI">Michigan</option>
+								<option value="MN">Minnesota</option>
+								<option value="MS">Mississippi</option>
+								<option value="MO">Missouri</option>
+								<option value="MT">Montana</option>
+								<option value="NE">Nebraska</option>
+								<option value="NV">Nevada</option>
+								<option value="NH">New Hampshire</option>
+								<option value="NJ">New Jersey</option>
+								<option value="NM">New Mexico</option>
+								<option value="NY">New York</option>
+								<option value="NC">North Carolina</option>
+								<option value="ND">North Dakota</option>
+								<option value="OH">Ohio</option>
+								<option value="OK">Oklahoma</option>
+								<option value="OR">Oregon</option>
+								<option value="PA">Pennsylvania</option>
+								<option value="RI">Rhode Island</option>
+								<option value="SC">South Carolina</option>
+								<option value="SD">South Dakota</option>
+								<option value="TN">Tennessee</option>
+								<option value="TX">Texas</option>
+								<option value="UT">Utah</option>
+								<option value="VT">Vermont</option>
+								<option value="VA">Virginia</option>
+								<option value="WA">Washington</option>
+								<option value="WV">West Virginia</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WY">Wyoming</option>
+							</select>
+							<span id="stateError" class="errorMessage">Please fill out this field.</span>
+						</div>
+					</div>
+				</div>
+				<hr class="styled-hr">
+				<label for="autoDetect" id="checkboxLabel">Want us to auto detect your location? Click Here:</label>
+				<input type="checkbox" id="checkbox">
+				<div class="buttons">
+					<button type="button" id="submit" onclick="submitButton()">Submit</button>
+					<button type="button" id="clear" onclick="clearButton()">Clear</button>
+				</div>
+				<p id="test"></p>
+			</div>
+		</div>
+	</section>
+	<section class="noResponse" id="noResponse">
+		<div class="noResponseBox">
+			<p>No records found.</p>
+		</div>
+	</section>
+	<section class="todayInfo" id="todayInfo">
+		<div class="weatherBox">
+			<div class="weatherBoxTop">
+				<h2 class="weatherBoxLocation" id="location">New York, NY</h2>
+				<div class="weatherBoxInfo">
+					<div class="cloudImage">
+						<img src="lib/images/symbols/cloudy.svg" alt="Cloud" id="currWeatherImage">
+						<p id="currWeather">Partly Cloudy</p>
+					</div>
+					<div class="temperature" id="currTemp">
+						72&deg;
+					</div>
+				</div>
+			</div>
+			<div class="forecastSection">
+				<div class="forecastItem">
+					<p>Humidity</p>
+					<img src="lib/images/humidity.png">
+					<p id="currHumidity">74%</p>
+				</div>
+				<div class="forecastItem">
+					<p>Pressure</p>
+					<img src="lib/images/Pressure.png">
+					<p id="currPressure">29</p>
+				</div>
+				<div class="forecastItem">
+					<p>Wind Speed</p>
+					<img src="lib/images/Wind_Speed.png">
+					<p id="currWind">34mph</p>
+				</div>
+				<div class="forecastItem">
+					<p>Visibility</p>
+					<img src="lib/images/Visibility.png">
+					<p id="currVis">10mi</p>
+				</div>
+				<div class="forecastItem">
+					<p>Cloud Cover</p>
+					<img src="lib/images/Cloud_Cover.png">
+					<p id="currCC">20%</p>
+				</div>
+				<div class="forecastItem">
+					<p>Uv Level</p>
+					<img src="lib/images/UV_Level.png">
+					<p id="currUV">0</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="forecastTable" id="forecastTable">
+		<table class="weatherTable">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Status</th>
+					<th>Temp High</th>
+					<th>Temp Low</th>
+					<th>Wind Speed</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="weatherRow" onclick="rowClick(this)">
+					<td id="rowDate0">Oct 11</td>
+					<td>
+						<img src="lib/images/Cloud_Cover.png" alt="Sunny" class="status-icon" id="rowImage0">
+						<span id="rowCode0">Sunny</span>
+					</td>
+					<td id="rowTempMax0">75&deg;F</td>
+					<td id="rowTempMin0">55&deg;F</td>
+					<td id="rowWS0">10 mph</td>
+				</tr>
+				<tr class="weatherRow" onclick="rowClick(this)">
+					<td id="rowDate1">Oct 12</td>
+					<td>
+						<img src="lib/images/Cloud_Cover.png" alt="Cloudy" class="status-icon" id="rowImage1">
+						<span id="rowCode1">Cloudy</span>
+					</td>
+					<td id="rowTempMax1">68&deg;F</td>
+					<td id="rowTempMin1">52&deg;F</td>
+					<td id="rowWS1">12 mph</td>
+				</tr>
+				<tr class="weatherRow" onclick="rowClick(this)">
+					<td id="rowDate2">Oct 13</td>
+					<td>
+						<img src="lib/images/Cloud_Cover.png" alt="Cloudy" class="status-icon" id="rowImage2">
+						<span id="rowCode2">Cloudy</span>
+					</td>
+					<td id="rowTempMax2">68&deg;F</td>
+					<td id="rowTempMin2">52&deg;F</td>
+					<td id="rowWS2">12 mph</td>
+				</tr>
+				<tr class="weatherRow" onclick="rowClick(this)">
+					<td id="rowDate3">Oct 14</td>
+					<td>
+						<img src="lib/images/Cloud_Cover.png" alt="Cloudy" class="status-icon" id="rowImage3">
+						<span id="rowCode3">Cloudy</span>
+					</td>
+					<td id="rowTempMax3">68&deg;F</td>
+					<td id="rowTempMin3">52&deg;F</td>
+					<td id="rowWS3">12 mph</td>
+				</tr>
+				<tr class="weatherRow" onclick="rowClick(this)">
+					<td id="rowDate4">Oct 15</td>
+					<td>
+						<img src="lib/images/Cloud_Cover.png" alt="Cloudy" class="status-icon" id="rowImage4">
+						<span id="rowCode4">Cloudy</span>
+					</td>
+					<td id="rowTempMax4">68&deg;F</td>
+					<td id="rowTempMin4">52&deg;F</td>
+					<td id="rowWS4">12 mph</td>
+				</tr>
+				<tr class="weatherRow" onclick="rowClick(this)">
+					<td id="rowDate5">Oct 16</td>
+					<td>
+						<img src="lib/images/Cloud_Cover.png" alt="Cloudy" class="status-icon" id="rowImage5">
+						<span id="rowCode5">Cloudy</span>
+					</td>
+					<td id="rowTempMax5">68&deg;F</td>
+					<td id="rowTempMin5">52&deg;F</td>
+					<td id="rowWS5">12 mph</td>
+				</tr>
+				<tr class="weatherRow" onclick="rowClick(this)">
+					<td id="rowDate6">Oct 17</td>
+					<td>
+						<img src="lib/images/Cloud_Cover.png" alt="Cloudy" class="status-icon" id="rowImage6">
+						<span id="rowCode6">Cloudy</span>
+					</td>
+					<td id="rowTempMax6">68&deg;F</td>
+					<td id="rowTempMin6">52&deg;F</td>
+					<td id="rowWS6">12 mph</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<section class="dailyWeatherDetails" id="dailyWeatherDetails">
+		<div class="dailyWeatherTitle">
+			<h1>Daily Weather Details</h1>
+			<hr class="styled-hr">
+		</div>
+		<div class="dailyBox">
+			<div class="dailyBoxTop">
+				<div class="dailyBoxInfo">
+					<div class="dailyBoxText">
+						<h2 class="dailyBoxDate" id="dailyBoxDate">Wednesday, 11 Oct 2024</h2>
+						<p class="dailyBoxCloud" id="dailyBoxState">Mostly Clear</p>
+						<p class="dailyBoxTemp" id="dailyBoxTemp">71.6&deg;</p>
+					</div>
+					<div class="dailyBoxImage">
+						<img src="lib/images/symbols/cloudy.svg" alt="Cloud" id="dailyBoxImage">
+					</div>
+				</div>
+			</div>
+			<div class="infoSection">
+				<div class="infoItem">
+					<p>Precipitation:&nbsp;</p>
+					<p class="infoItemB" id="dailyBoxType">74%</p>
+				</div>
+				<div class="infoItem">
+					<p>Chance of Rain:&nbsp;</p>
+					<p class="infoItemB" id="dailyBoxChance">29</p>
+				</div>
+				<div class="infoItem">
+					<p>Wind Speed:&nbsp;</p>
+					<p class="infoItemB" id="dailyBoxWS">34mph</p>
+				</div>
+				<div class="infoItem">
+					<p>Humidity:&nbsp;</p>
+					<p class="infoItemB" id="dailyBoxHumidity">10mi</p>
+				</div>
+				<div class="infoItem">
+					<p>Visibility:&nbsp;</p>
+					<p class="infoItemB" id="dailyBoxVis">20%</p>
+				</div>
+				<div class="infoItem">
+					<p>Sunrise/Sunset:&nbsp;</p>
+					<p class="infoItemB" id="dailyBoxSRSS">0</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="weatherCharts" id="weatherCharts">
+		<div class="weatherChartsTitle">
+			<h1>Weather Charts</h1>
+			<hr class="styled-hr">
+			<input type="image" src="lib/images/arrowDown.png" onclick="chartsButton()" id="arrowButton">
+		</div>
+		<div id="tableA"></div>
+		<div id="tableB"></div>
+	</section>
+</body>
+</html>
